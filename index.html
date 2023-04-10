@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>monfrancais</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Un phrase du jour</a></li>
+                <li><a href="sentence.html">Revision</a></li>
+                <li><a href="voca.html">Caheir de vocabulaire</a></li>
+            </ul>
+        </nav>
+        <div class="box">
+            <h3 id="date">0000.00.00</h3>
+            <h3 id="clock">00:00:00</h3>
+        </div>
+    </header>
+    <main>
+        <div>
+            <form id="login-form">
+                <p>Bonjour, Comment tu t'appelles?</p>
+                <input maxlength="15" type="text" required>
+            </form>
+        </div>
+        <div id="main-page" class="hidden">
+            <h2 id="greeting"></h2>
+            <h1 id="tap-name1">un phrase du jour</h1>
+            <div id="sentence">
+                <span>d</span>
+                <button id="mean-btn">sans</button>
+                <span class="hidden">d</span>
+            </div>
+            <form id="vaca-form">
+                <input type="text"  placeholder="Noter un mot et le stocker." required>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>created by. alloboo</p>
+    </footer>
+    <script src="js/greeting.js"></script>
+    <script src="js/clock.js"></script>
+    <script src="js/date.js">
+    </script>
+    <script src="js/sentence.js"></script>
+    <script src="js/voca.js"></script>
+</body>
+
+</html>
