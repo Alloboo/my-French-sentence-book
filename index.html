@@ -6,41 +6,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <title>monfrancais</title>
 </head>
 
-<body>
-    <header>
+<body class="container">
+    <header id="intro">
         <nav>
-            <ul>
-                <li><a href="index.html">Un phrase du jour</a></li>
-                <li><a href="sentence.html">Revision</a></li>
-                <li><a href="voca.html">Caheir de vocabulaire</a></li>
-            </ul>
+            <button class="mainBtn">Un phrase du jour</button>
+            <div>
+                <button class="showReviewBtn">Revision</button>
+                <button class="showVocaBtn">Vocabulaire</button>
+            </div>
         </nav>
         <div class="box">
-            <h3 id="date">0000.00.00</h3>
-            <h3 id="clock">00:00:00</h3>
+            <p id="date">0000.00.00</p>
+            <p id="clock">00:00:00</p>
         </div>
     </header>
-    <main>
+    <main class="main">
+        <div class="colorBox">컬러박스</div>
         <div>
             <form id="login-form">
-                <p>Bonjour, Comment tu t'appelles?</p>
+                <h2>Bonjour, Comment tu t'appelles?</h2>
                 <input maxlength="15" type="text" required>
             </form>
         </div>
         <div id="main-page" class="hidden">
-            <h2 id="greeting"></h2>
-            <h1 id="tap-name1">un phrase du jour</h1>
+            <h3 id="greeting"></h3>
+            <p>Un phrase du jour</p>
             <div id="sentence">
-                <span>d</span>
+                <span></span>
                 <button id="mean-btn">sans</button>
-                <span class="hidden">d</span>
+                <span class="hidden"></span>
             </div>
-            <form id="vaca-form">
+            <form id="voca-form">
                 <input type="text"  placeholder="Noter un mot et le stocker." required>
             </form>
+        </div>
+        <div id="review" class="hidden">
+            <ol id="sentence-list"></ol>
+        </div>
+        <div id="voca" class="hidden">
+            <ol id="voca-list"></ol>
         </div>
     </main>
     <footer>
@@ -48,8 +58,7 @@
     </footer>
     <script src="js/greeting.js"></script>
     <script src="js/clock.js"></script>
-    <script src="js/date.js">
-    </script>
+    <script src="js/date.js"></script>
     <script src="js/sentence.js"></script>
     <script src="js/voca.js"></script>
 </body>

@@ -17,7 +17,7 @@ function onLoginSubmit(e) {
 }
 
 function printSentence(username) {
-   greeting.innerText = `Tu vas y arriver ! ${username} :)`;
+   greeting.innerText = `Tu vas y arriver, ${username} :)`;
    mainPage.classList.remove(HIDDEN_CLASSNAME);
 }
 

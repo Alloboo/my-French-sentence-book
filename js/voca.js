@@ -1,10 +1,26 @@
 const vocaForm = document.querySelector('#voca-form');
 const vocaInput = document.querySelector('#voca-form input');
-const vocaList = document.querySelector('#vaca-list');
+const voca = document.querySelector("#voca");
+const vocaList = document.querySelector('#voca-list');
+const review = document.querySelector("#review");
 
 const VOCAS_KEY = "vocas";
 
 let vocas = [];
+
+const showVocaBtn = document.querySelector(".showVocaBtn");
+
+function showVocaList(e) {
+    e.preventDefault();
+
+    const mainPage = document.querySelector("#main-page");
+
+    mainPage.classList.add("hidden");
+    review.classList.add("hidden");
+    voca.classList.remove("hidden");
+}
+
+showVocaBtn.addEventListener('click', showVocaList);
 
 function saveVocas() {
     localStorage.setItem(VOCAS_KEY, JSON.stringify(vocas));
@@ -22,16 +38,16 @@ function paintVoca(newVoca) {
     li.id = newVoca.id;
 
     const span = document.createElement("span");
-    span.innerText - newVoca.text;
+    span.innerText = newVoca.text;
 
-    const deleteBtn = document.createAttribute("button");
+    const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-btn";
     deleteBtn.innerText = 'x';
     deleteBtn.addEventListener('click', deleteVoca);
 
     li.appendChild(span);
     li.appendChild(deleteBtn);
-    vocaList.appendChild(li);
+    vocaList.appendChild(li);   
 }
 
 function handleVocaSubmit(e) {

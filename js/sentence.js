@@ -1,10 +1,4 @@
-//아직 하루 한 문장 구현 안 함. 지금은 페이지 로드할 때마다 출력.
-
 const sentences = [
-    {
-        sentence: `On trouve facilement plein de choses à faire dans les environs de chez moi.`,
-        mean: `집 근처에서 할 만한 많은 것들을 쉽게 찾을 수 있어요.`,
-    },
     {
         sentence: `J'ai du mal  à  vous entendre. Il y a trop de bruit d'ici.`,
         mean: `당신 말이 잘 안 들려요. 여기 너무 시끄러워요.`,
@@ -22,7 +16,7 @@ const sentences = [
         mean: `그렇게 하면 되겠네요.`,
     },
     {
-        sentence: `Peu m'importe`,
+        sentence: `Peu n'importe`,
         mean: `어떤 쪽이든 괜찮아요.`,
     },
     {
@@ -106,20 +100,119 @@ const sentences = [
 const sentence = document.querySelector('#sentence span:first-child');
 const mean = document.querySelector('#sentence span:last-child');
 const meanBtn = document.querySelector('#mean-btn');
+const sentenceList = document.querySelector('#sentence-list');
+const showReviewBtn = document.querySelector(".showReviewBtn");
+
+const SENTENCE_KEY = "sentences";
+const HIDDEN_MEAN = "hidden-mean";
+
+let reviewSentences = [];
 
 function getTodaySentence() {
     const todaySentence = sentences[Math.floor(Math.random() * sentences.length)];
     sentence.innerText = todaySentence.sentence;
     mean.innerText = todaySentence.mean;
+
+    const newSentenceObj = {
+        text: todaySentence,
+        id: Date.now(),
+    };
+
+    reviewSentences.push(newSentenceObj);
+    paintSentence(newSentenceObj);
+    saveSentences();
 };
 
-getTodaySentence();
-
-function showMean(e) {
+function openMean(e) {
     e.preventDefault();
 
-    mean.classList.remove(HIDDEN_CLASSNAME);
+    if (meanBtn.className !== HIDDEN_MEAN) {
+        mean.classList.remove(HIDDEN_CLASSNAME);
+        meanBtn.classList.add(HIDDEN_MEAN);
+    } else {
+        mean.classList.add(HIDDEN_CLASSNAME);
+        meanBtn.classList.remove(HIDDEN_MEAN);
+    }   
 }
 
-meanBtn.addEventListener('click', showMean);
+meanBtn.addEventListener('click', openMean);
+
+function saveSentences() {
+    localStorage.setItem(SENTENCE_KEY, JSON.stringify(reviewSentences));
+    sessionStorage.setItem(SENTENCE_KEY, JSON.stringify(reviewSentences));
+}
+
+function deleteSentence(e) {
+    const li = e.target.parentElement;
+    li.remove();
+    reviewSentences = reviewSentences.filter(sentence => sentence.id !== parseInt(li.id));
+    saveSentences();
+}
+
+const savedSentences = localStorage.getItem(SENTENCE_KEY);
+const savedTodaySentence = sessionStorage.getItem(SENTENCE_KEY);
+
+//브라우저를 닫기 전까지 today 문장은 바뀌지 않음
+const parsedSentences = JSON.parse(savedSentences);
+
+if (savedSentences) {
+    reviewSentences = parsedSentences;
+    parsedSentences.forEach(paintSentence);
+}
+
+if (savedTodaySentence) {  
+    sentence.innerText = parsedSentences[0].text.sentence;
+    mean.innerText = parsedSentences[0].text.mean;
+
+    reviewSentences.push(parsedSentences);
+    paintSentence(parsedSentences);
+} else {
+    getTodaySentence();
+}
+
+function paintSentence(newSentenceObj) {
+    const savedSentences = localStorage.getItem(SENTENCE_KEY);
+
+    if (newSentenceObj.text !== savedSentences[0].text) {
+        const li = document.createElement("li");
+        li.id = newSentenceObj.id;
+    
+        const span = document.createElement("span");
+        span.innerText = newSentenceObj.text.sentence;
+
+        const deleteSentenceBtn = document.createElement("button");
+        deleteSentenceBtn.className = "delete-btn";
+        deleteSentenceBtn.innerText = 'x';
+        deleteSentenceBtn.addEventListener('click', deleteSentence);
+    
+        li.appendChild(span);
+        li.appendChild(deleteSentenceBtn);
+        sentenceList.appendChild(li);
+    }
+}
+
+
+function showSentenceList(e) {
+    e.preventDefault();
+
+    const mainPage = document.querySelector("#main-page");
+    mainPage.classList.add(HIDDEN_CLASSNAME);
+    voca.classList.add(HIDDEN_CLASSNAME);
+    review.classList.remove(HIDDEN_CLASSNAME);
+}
+
+showReviewBtn.addEventListener('click', showSentenceList);
+
+const mainBtn = document.querySelector(".mainBtn");
+
+function combackMain(e) {
+    e.preventDefault();
+
+    mainPage.classList.remove(HIDDEN_CLASSNAME);
+    voca.classList.add(HIDDEN_CLASSNAME);
+    review.classList.add(HIDDEN_CLASSNAME);
+}
+
+mainBtn.addEventListener('click', combackMain);
+
 
