@@ -97,6 +97,7 @@ const sentences = [
     },
 ]
 
+
 const sentence = document.querySelector('#sentence span:first-child');
 const mean = document.querySelector('#sentence span:last-child');
 const meanBtn = document.querySelector('#mean-btn');
@@ -107,21 +108,6 @@ const SENTENCE_KEY = "sentences";
 const HIDDEN_MEAN = "hidden-mean";
 
 let reviewSentences = [];
-
-function getTodaySentence() {
-    const todaySentence = sentences[Math.floor(Math.random() * sentences.length)];
-    sentence.innerText = todaySentence.sentence;
-    mean.innerText = todaySentence.mean;
-
-    const newSentenceObj = {
-        text: todaySentence,
-        id: Date.now(),
-    };
-
-    reviewSentences.push(newSentenceObj);
-    paintSentence(newSentenceObj);
-    saveSentences();
-};
 
 function openMean(e) {
     e.preventDefault();
@@ -136,6 +122,24 @@ function openMean(e) {
 }
 
 meanBtn.addEventListener('click', openMean);
+
+function getTodaySentence() {
+    const todaySentence = sentences[Math.floor(Math.random() * sentences.length)];
+    sentence.innerText = todaySentence.sentence;
+    mean.innerText = todaySentence.mean;
+
+    const newSentenceObj = {
+        text: todaySentence,
+        id: Date.now(),
+    };
+
+    reviewSentences.push(newSentenceObj);
+    saveSentences();
+    paintSentence(newSentenceObj);
+};
+
+console.log(reviewSentences);
+
 
 function saveSentences() {
     localStorage.setItem(SENTENCE_KEY, JSON.stringify(reviewSentences));
@@ -174,6 +178,9 @@ function paintSentence(newSentenceObj) {
     const savedSentences = localStorage.getItem(SENTENCE_KEY);
 
     if (newSentenceObj.text !== savedSentences[0].text) {
+
+        console.log(savedSentences);
+
         const li = document.createElement("li");
         li.id = newSentenceObj.id;
     
@@ -190,29 +197,3 @@ function paintSentence(newSentenceObj) {
         sentenceList.appendChild(li);
     }
 }
-
-
-function showSentenceList(e) {
-    e.preventDefault();
-
-    const mainPage = document.querySelector("#main-page");
-    mainPage.classList.add(HIDDEN_CLASSNAME);
-    voca.classList.add(HIDDEN_CLASSNAME);
-    review.classList.remove(HIDDEN_CLASSNAME);
-}
-
-showReviewBtn.addEventListener('click', showSentenceList);
-
-const mainBtn = document.querySelector(".mainBtn");
-
-function combackMain(e) {
-    e.preventDefault();
-
-    mainPage.classList.remove(HIDDEN_CLASSNAME);
-    voca.classList.add(HIDDEN_CLASSNAME);
-    review.classList.add(HIDDEN_CLASSNAME);
-}
-
-mainBtn.addEventListener('click', combackMain);
-
-

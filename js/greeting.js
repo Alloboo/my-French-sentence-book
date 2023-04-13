@@ -1,3 +1,4 @@
+
 const loginForm = document.querySelector("#login-form");
 const loginInput = document.querySelector('#login-form input');
 const greeting = document.querySelector('#greeting');
@@ -13,10 +14,10 @@ function onLoginSubmit(e) {
     loginForm.classList.add(HIDDEN_CLASSNAME);
     const username = loginInput.value;
     localStorage.setItem(USERNAME_KEY, username);
-    printSentence(username);
+    printGreeting(username);
 }
 
-function printSentence(username) {
+function printGreeting(username) {
    greeting.innerText = `Tu vas y arriver, ${username} :)`;
    mainPage.classList.remove(HIDDEN_CLASSNAME);
 }
@@ -28,6 +29,5 @@ if (savedUsername === null) {
     loginForm.addEventListener('submit', onLoginSubmit);   
 } else {
     loginForm.classList.add(HIDDEN_CLASSNAME);
-    printSentence(savedUsername);
+    printGreeting(savedUsername);
 }
-

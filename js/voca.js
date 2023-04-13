@@ -8,19 +8,9 @@ const VOCAS_KEY = "vocas";
 
 let vocas = [];
 
-const showVocaBtn = document.querySelector(".showVocaBtn");
 
-function showVocaList(e) {
-    e.preventDefault();
 
-    const mainPage = document.querySelector("#main-page");
 
-    mainPage.classList.add("hidden");
-    review.classList.add("hidden");
-    voca.classList.remove("hidden");
-}
-
-showVocaBtn.addEventListener('click', showVocaList);
 
 function saveVocas() {
     localStorage.setItem(VOCAS_KEY, JSON.stringify(vocas));
